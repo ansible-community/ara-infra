@@ -1,0 +1,8 @@
+{{ with .GitInfo }}
+    <!-- Source -->
+    <section id="mini-bio">
+      <h3>Website source</h3>
+      <p>This website was last updated from source: {{ .AuthorDate }}</p>
+      <p>Git commit: <a href="https://git.openstack.org/cgit/openstack/ara-infra/commit/?id={{ .Hash }}">{{ .Hash }}</a></p>
+    </section>
+{{ end }}
