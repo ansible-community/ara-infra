@@ -1,0 +1,94 @@
+---
+#  Copyright (c) 2018 Red Hat, Inc.
+#
+#  This file is part of ARA Records Ansible.
+#
+#  ARA is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  ARA is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with ARA.  If not, see <http://www.gnu.org/licenses/>.
+
+- become: yes
+  block:
+    - name: Install git
+      package:
+        name: git
+        state: present
+
+    - name: Create user for Hugo
+      become: true
+      user:
+        name: hugo
+        comment: User for Hugo
+        shell: /sbin/nologin
+        home: "{{ hugo_directory }}"
+
+    - name: Create log directory for Hugo
+      file:
+        path: /var/log/hugo
+        state: directory
+        owner: hugo
+        group: hugo
+        mode: 0750
+
+    - name: Set up logrotate for Hugo
+      copy:
+        src: hugo.logrotate
+        dest: /etc/logrotate.d/hugo
+
+    - name: Download Hugo release tarball
+      get_url:
+        url: "{{ hugo_release }}"
+        dest: "{{ hugo_directory }}"
+      register: hugo_download
+
+    - name: Extract Hugo release tarball
+      unarchive:
+        src: "{{ hugo_download.dest }}"
+        dest: "{{ hugo_directory }}"
+        remote_src: yes
+      when: hugo_download is changed
+
+    - name: Symlink Hugo in PATH
+      file:
+        src: "{{ hugo_directory }}/hugo"
+        dest: /usr/local/bin/hugo
+        owner: hugo
+        group: hugo
+        state: link
+
+    - name: Clone Hugo theme
+      become_user: hugo
+      git:
+        repo: "{{ hugo_theme }}"
+        dest: "{{ hugo_theme_directory }}"
+        force: yes
+        update: yes
+
+    - name: Configure Hugo server systemd service
+      template:
+        src: hugo.service.j2
+        dest: /etc/systemd/system/hugo.service
+        owner: root
+        group: root
+        mode: 0644
+      register: hugo_systemd
+
+    - when: hugo_systemd is changed
+      block:
+        - name: Reload systemctl
+          systemd:
+            daemon_reload: yes
+
+        - name: Restart Hugo
+          service:
+            name: hugo
+            state: restarted

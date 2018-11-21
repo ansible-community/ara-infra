@@ -1,0 +1,42 @@
+---
+#  Copyright (c) 2018 Red Hat, Inc.
+#
+#  This file is part of ARA Records Ansible.
+#
+#  ARA is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  ARA is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with ARA.  If not, see <http://www.gnu.org/licenses/>.
+
+# Zuul already prepares the src repository on the remote node and
+# Zuul doesn't let you run pipe lookups on executors for security purposes
+- name: Symlink ara-infra to persistent location with Zuul
+  become: yes
+  file:
+    src: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
+    dest: /opt/ara-infra
+    state: link
+  when: zuul is defined
+
+# git rev-parse --show-toplevel returns the root git directory
+- name: Copy ara-infra to persistent location
+  become: yes
+  synchronize:
+    src: "{{ lookup('pipe', 'git rev-parse --show-toplevel') }}"
+    dest: /opt/
+    delete: yes
+  when: zuul is not defined
+
+- name: Set up Hugo
+  include_tasks: hugo.yaml
+
+- name: Set up nginx
+  include_tasks: nginx.yaml

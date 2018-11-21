@@ -1,0 +1,53 @@
+---
+#  Copyright (c) 2018 Red Hat, Inc.
+#
+#  This file is part of ARA Records Ansible.
+#
+#  ARA is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  ARA is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with ARA.  If not, see <http://www.gnu.org/licenses/>.
+
+- name: Website pre-run
+  hosts: infra.recordsansible.org
+  vars:
+    domain: ara.recordsansible.org
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - become: true
+      block:
+        - name: Install python3-pyOpenSSL
+          package:
+            name: python3-pyOpenSSL
+            state: present
+
+        - name: Create expected letsencrypt directories
+          file:
+            path: "/etc/letsencrypt/live/{{ domain }}"
+            state: directory
+            recurse: yes
+
+        - name: Generate an OpenSSL private key
+          openssl_privatekey:
+            path: "/etc/letsencrypt/live/{{ domain }}/privkey.pem"
+
+        - name: Generate an OpenSSL CSR
+          openssl_csr:
+            path: /etc/letsencrypt/live/{{ domain }}/request.csr
+            privatekey_path: "/etc/letsencrypt/live/{{ domain }}/privkey.pem"
+            common_name: "{{ domain }}"
+
+        - name: Generate a self signed SSL certificate
+          openssl_certificate:
+            path: "/etc/letsencrypt/live/{{ domain }}/fullchain.pem"
+            privatekey_path: "/etc/letsencrypt/live/{{ domain }}/privkey.pem"
+            csr_path: /etc/letsencrypt/live/{{ domain }}/request.csr
+            provider: selfsigned

@@ -9,8 +9,8 @@ disqusShortname = ""
 googleAnalytics = "UA-119558821-1"
 pluralizeListTitles = false
 enableRobotsTXT = true
-canonifyURLs = true
 enableGitInfo = true
+relativeURLs = true
 
 [params]
   # Sets the meta tag description

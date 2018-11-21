@@ -1,5 +1,22 @@
-- project:
-    name: openstack/ara-infra
-    templates:
-      - noop-jobs
+- nodeset:
+    name: ara-infra-fedora-28
+    nodes:
+      - name: infra.recordsansible.org
+        label: fedora-28
 
+- job:
+    name: ara-infra-website
+    parent: base
+    nodeset: ara-infra-fedora-28
+    pre-run: tests/website-pre.yaml
+    run: playbooks/website.yaml
+    post-run: tests/website-post.yaml
+    success-url: logs/build/
+
+- project:
+    check:
+      jobs:
+        - ara-infra-website
+    gate:
+      jobs:
+        - ara-infra-website
