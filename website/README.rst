@@ -3,7 +3,7 @@ ARA's website
 
 Hosted at `ara.recordsansible.org <https://ara.recordsansible.org>`_, the
 website is built with `Hugo <https://gohugo.io/>`_ and installed with the
-``ara-website`` role from this project's repository.
+``website`` role from this project's repository.
 
 The website uses the Hugo theme called `future-imperfect <https://themes.gohugo.io/future-imperfect/>`_
 and it must be checked out as part of building the site.
