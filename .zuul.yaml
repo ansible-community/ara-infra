@@ -1,0 +1,5 @@
+- project:
+    name: openstack/ara-infra
+    templates:
+      - noop-jobs
+
