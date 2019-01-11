@@ -13,10 +13,54 @@
     post-run: tests/website-post.yaml
     success-url: logs/build/
 
+- job:
+    name: ara-component-integration-base
+    parent: base
+    vars:
+      integration_ansible_name: "{{ ansible_user_dir }}/src/github.com/ansible/ansible"
+      integration_ansible_version: null
+    required-projects:
+      - openstack/ara-infra
+      - openstack/ara-server
+      - openstack/ara-plugins
+      - openstack/ara-clients
+    run: playbooks/integration-tests.yaml
+    post-run: tests/integration-post.yaml
+
+- job:
+    name: ara-integration-fedora-devel
+    parent: ara-component-integration-base
+    nodeset: fedora-latest
+    required-projects:
+      - name: github.com/ansible/ansible
+        override-checkout: devel
+
+- job:
+    name: ara-integration-fedora-2.7
+    parent: ara-component-integration-base
+    nodeset: fedora-latest
+    required-projects:
+      - name: github.com/ansible/ansible
+        override-checkout: stable-2.7
+
+- job:
+    name: ara-integration-ubuntu-2.6
+    parent: ara-component-integration-base
+    nodeset: ubuntu-bionic
+    required-projects:
+      - name: github.com/ansible/ansible
+        override-checkout: stable-2.6
+
 - project:
     check:
       jobs:
         - ara-infra-website
+        - ara-integration-fedora-2.7
+        - ara-integration-fedora-devel:
+            voting: false
+        - ara-integration-ubuntu-2.6
     gate:
       jobs:
         - ara-infra-website
+        - ara-integration-fedora-2.7
+        - ara-integration-ubuntu-2.6
