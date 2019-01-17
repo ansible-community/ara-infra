@@ -92,9 +92,9 @@ relativeURLs = true
 # Sets the menu items in the navigation bar
 # Identifier prepends a Font Awesome icon to the menu item
 [[menu.main]]
-  name = "Home"
+  name = "About"
   url = "/"
-  identifier = "fa fa-home"
+  identifier = "fa fa-question-circle"
   weight = 1
 
 [[menu.main]]
