@@ -1,0 +1,34 @@
+---
+#  Copyright (c) 2019 Red Hat, Inc.
+#
+#  This file is part of ARA Records Ansible.
+#
+#  ARA Records Ansible is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  ARA Records Ansible is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with ARA Records Ansible. If not, see <http://www.gnu.org/licenses/>.
+
+- become: yes
+  become_user: "{{ ara_server_user }}"
+  block:
+    - name: Ensure the database directory exists
+      file:
+        path: "{{ ara_server_database_name | dirname }}"
+        state: directory
+        owner: "{{ ara_server_user }}"
+        group: "{{ ara_server_group }}"
+        mode: 0750
+
+    - name: Run SQL migrations
+      environment:
+        ARA_SETTINGS: "{{ ara_server_settings }}"
+        PATH: "{{ path_with_virtualenv | default(omit) }}"
+      command: ara-manage migrate

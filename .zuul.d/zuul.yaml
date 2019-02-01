@@ -51,6 +51,34 @@
       - name: github.com/ansible/ansible
         override-checkout: stable-2.6
 
+- job:
+    name: ara-server-role-integration-base
+    parent: base
+    files:
+      - playbooks/*
+      - roles/ara_frontend_nginx/*
+      - roles/ara_server/*
+      - ara/*
+      - tests/*
+      - .zuul.d/*
+      - setup.py
+      - setup.cfg
+      - requirements.txt
+      - test-requirements.txt
+    required-projects:
+      - openstack/ara-server
+    run: playbooks/ara-server.yaml
+
+- job:
+    name: ara-server-role-integration-ubuntu
+    parent: ara-server-role-integration-base
+    nodeset: ubuntu-bionic
+
+- job:
+    name: ara-server-role-integration-fedora
+    parent: ara-server-role-integration-base
+    nodeset: fedora-latest
+
 - project:
     check:
       jobs:
@@ -59,8 +87,12 @@
         - ara-integration-fedora-devel:
             voting: false
         - ara-integration-ubuntu-2.6
+        - ara-server-role-integration-ubuntu
+        - ara-server-role-integration-fedora
     gate:
       jobs:
         - ara-infra-website
         - ara-integration-fedora-2.7
         - ara-integration-ubuntu-2.6
+        - ara-server-role-integration-ubuntu
+        - ara-server-role-integration-fedora

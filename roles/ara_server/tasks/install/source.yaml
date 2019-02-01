@@ -1,0 +1,55 @@
+---
+#  Copyright (c) 2019 Red Hat, Inc.
+#
+#  This file is part of ARA Records Ansible.
+#
+#  ARA Records Ansible is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  ARA Records Ansible is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with ARA Records Ansible. If not, see <http://www.gnu.org/licenses/>.
+
+# Zuul takes care of preparing the source repository but we need to make it
+# available to the ara user.
+- when: zuul is defined
+  become: yes
+  block:
+    - name: Ensure git checkout directory exists
+      become_user: "{{ ara_server_user }}"
+      file:
+        path: "{{ ara_server_source_checkout | dirname }}"
+        state: directory
+
+    # Files will be owned by the Zuul user but allow for reading, we don't need
+    # to adjust permissions for this.
+    - name: Copy Zuul git repository for ara-server
+      command: "cp -r {{ ansible_user_dir }}/src/git.openstack.org/openstack/ara-server {{ ara_server_source_checkout }}"
+
+- become: yes
+  become_user: "{{ ara_server_user }}"
+  block:
+    - name: Prepare git repository for ara-server
+      git:
+        repo: "{{ ara_server_source }}"
+        dest: "{{ ara_server_source_checkout }}"
+        version: "{{ (ara_server_install_version == 'latest') | ternary('HEAD', ara_server_install_version) }}"
+      when: zuul is not defined
+
+    - name: Install ara-server
+      pip:
+        name: "{{ ara_server_source_checkout }}"
+        state: present
+        virtualenv: "{{ ara_server_venv | bool | ternary(ara_server_venv_path, omit) }}"
+        virtualenv_python: python3
+
+- name: Prefix the virtualenv bin directory to PATH
+  set_fact:
+    path_with_virtualenv: "{{ ara_server_venv_path }}/bin:{{ ansible_env.PATH }}"
+  when: ara_server_venv | bool
