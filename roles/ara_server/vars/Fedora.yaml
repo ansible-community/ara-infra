@@ -18,5 +18,6 @@
 
 ara_server_required_packages:
   - git
+  - python3-virtualenv
   - libselinux-python
   - policycoreutils-python-utils
