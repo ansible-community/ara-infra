@@ -67,6 +67,7 @@
       - test-requirements.txt
     required-projects:
       - openstack/ara-server
+    pre-run: tests/role-integration-pre.yaml
     run: playbooks/ara-server.yaml
 
 - job:
