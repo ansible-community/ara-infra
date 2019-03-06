@@ -109,6 +109,12 @@ relativeURLs = true
   identifier = "fa fa-book"
   weight = 3
 
+[[menu.main]]
+  name = "Community & Help"
+  url = "/community"
+  identifier = "fa fa-users"
+  weight = 4
+
 # Sets Social Media icons to appear and link to your account. Value should be your
 # username unless otherwise noted. These are the icons affected by socialAppearAtTop
 # and socialAppearAtBottom.
