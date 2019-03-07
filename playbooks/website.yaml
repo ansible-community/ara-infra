@@ -1,5 +1,5 @@
 - name: Set up the ara.recordsansible.org website
-  hosts: infra.recordsansible.org
+  hosts: ara.recordsansible.org
   gather_facts: yes
   tasks:
     - name: Include the website role

@@ -1,7 +1,7 @@
 - nodeset:
     name: ara-infra-fedora-28
     nodes:
-      - name: infra.recordsansible.org
+      - name: ara.recordsansible.org
         label: fedora-28
 
 - job:
