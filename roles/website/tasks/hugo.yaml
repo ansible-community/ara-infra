@@ -31,19 +31,6 @@
         shell: /sbin/nologin
         home: "{{ hugo_directory }}"
 
-    - name: Create log directory for Hugo
-      file:
-        path: /var/log/hugo
-        state: directory
-        owner: hugo
-        group: hugo
-        mode: 0750
-
-    - name: Set up logrotate for Hugo
-      copy:
-        src: hugo.logrotate
-        dest: /etc/logrotate.d/hugo
-
     - name: Download Hugo release tarball
       get_url:
         url: "{{ hugo_release }}"

@@ -6,7 +6,7 @@ After=network.target
 User=hugo
 Group=hugo
 Type=simple
-ExecStart=/usr/local/bin/hugo server --source /opt/ara-infra/website --themesDir {{ hugo_directory }}/themes --log --logFile /var/log/hugo/hugo.log --baseURL "https://ara.recordsansible.org/" --appendPort=false
+ExecStart=/usr/local/bin/hugo server --source /opt/ara-infra/website --themesDir {{ hugo_directory }}/themes --baseURL "https://ara.recordsansible.org/" --appendPort=false
 ProtectSystem=yes
 ProtectHome=no
 NoNewPrivileges=yes
