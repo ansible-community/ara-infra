@@ -17,7 +17,7 @@
 #  along with ARA.  If not, see <http://www.gnu.org/licenses/>.
 
 - name: Website post-run
-  hosts: infra.recordsansible.org
+  hosts: ara.recordsansible.org
   gather_facts: yes
   tasks:
     - name: Create artifact directories

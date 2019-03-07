@@ -17,7 +17,7 @@
 #  along with ARA.  If not, see <http://www.gnu.org/licenses/>.
 
 - name: Website pre-run
-  hosts: infra.recordsansible.org
+  hosts: ara.recordsansible.org
   vars:
     domain: ara.recordsansible.org
     ansible_python_interpreter: /usr/bin/python3
