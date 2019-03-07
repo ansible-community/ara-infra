@@ -1,0 +1,46 @@
+{% if ara_web_dev_server %}
+upstream ara_web {
+    # fail_timeout=0 means we always retry an upstream even if it failed
+    # to return a good HTTP response
+    server {{ ara_web_dev_server_bind_address }}:{{ ara_web_dev_server_bind_port }} fail_timeout=0;
+}
+{% endif %}
+
+server {
+    listen 80;
+    server_name {{ ara_web_fqdn }};
+    return 301 https://{{ ara_web_fqdn }}$request_uri;
+}
+
+server {
+    listen 443;
+    server_name {{ ara_web_fqdn }};
+    root {{ ara_web_static_dir }};
+    access_log /var/log/nginx/{{ ara_web_fqdn }}_access.log;
+    error_log /var/log/nginx/{{ ara_web_fqdn }}_error.log;
+
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/{{ ara_web_fqdn }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ ara_web_fqdn }}/privkey.pem;
+    ssl_session_cache   shared:SSL:10m;
+    ssl_session_timeout 10m;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+
+    {% if ara_web_dev_server %}
+    location ~ {
+      # checks for static file, if not found proxy to server
+      try_files $uri @proxy_to_app;
+    }
+
+    location @proxy_to_app {
+        # Redefine the header fields that NGINX sends to the upstream server
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        # Define the location of the proxy server to send the request to
+        proxy_pass http://ara_web;
+   }
+   {% endif %}
+}
