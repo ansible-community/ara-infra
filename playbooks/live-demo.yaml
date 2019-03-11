@@ -3,6 +3,7 @@
   gather_facts: yes
   vars:
     # ara_api
+    ara_api_write_login_required: true
     ara_api_fqdn: api.demo.recordsansible.org
     ara_api_frontend_server: nginx
     ara_api_frontend_vhost: api.demo.recordsansible.org.conf.j2
