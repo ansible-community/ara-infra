@@ -13,6 +13,18 @@
     post-run: tests/website-post.yaml
     success-url: logs/build/
 
+- job:
+    name: ara-infra-upload-git-mirror
+    parent: upload-git-mirror
+    description: Mirrors openstack/ara-infra to recordsansible/ara-infra
+    allowed-projects: openstack/ara-infra
+    vars:
+      git_mirror_repository: recordsansible/ara-infra
+    secrets:
+      - name: git_mirror_credentials
+        secret: ara_git_mirror_credentials
+        pass-to-parent: true
+
 - project:
     check:
       jobs:
@@ -20,3 +32,6 @@
     gate:
       jobs:
         - ara-infra-website
+    post:
+      jobs:
+        - ara-infra-upload-git-mirror
