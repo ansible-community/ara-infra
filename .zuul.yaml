@@ -16,8 +16,8 @@
 - job:
     name: ara-infra-upload-git-mirror
     parent: upload-git-mirror
-    description: Mirrors openstack/ara-infra to ansible-community/ara-infra
-    allowed-projects: openstack/ara-infra
+    description: Mirrors recordsansible/ara-infra to ansible-community/ara-infra
+    allowed-projects: recordsansible/ara-infra
     vars:
       git_mirror_repository: ansible-community/ara-infra
     secrets:
