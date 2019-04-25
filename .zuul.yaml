@@ -13,6 +13,54 @@
     post-run: tests/website-post.yaml
     success-url: logs/build/
 
+- secret:
+    name: ara_infra_git_mirror_credentials
+    data:
+      user: git
+      host: github.com
+      host_key: github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
+      ssh_key: !encrypted/pkcs1-oaep
+        - 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
+
 - job:
     name: ara-infra-upload-git-mirror
     parent: upload-git-mirror
@@ -22,7 +70,7 @@
       git_mirror_repository: ansible-community/ara-infra
     secrets:
       - name: git_mirror_credentials
-        secret: ara_git_mirror_credentials
+        secret: ara_infra_git_mirror_credentials
         pass-to-parent: true
 
 - project:
