@@ -24,11 +24,6 @@ server {
     ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers         HIGH:!aNULL:!MD5;
 
-    # There's nothing at /, redirect it to the actual API for convenience
-    location / {
-      return 301 http://{{ ara_api_fqdn }}/api/v1/;
-    }
-
     location /static {
         expires 7d;
         add_header Cache-Control "public";
