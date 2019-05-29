@@ -10,9 +10,12 @@
     ara_api_wsgi_server: gunicorn
     ara_api_allowed_hosts:
       - api.demo.recordsansible.org
+    # TODO: Figure out if it's possible to set ara-web to use demo from localhost:3000
+    ara_api_cors_origin_allow_all: true
     ara_api_cors_origin_whitelist:
-      - web.demo.recordsansible.org
-      - logs.openstack.org
+      - https://web.demo.recordsansible.org
+      - http://logs.openstack.org
+      - http://localhost:3000
     # ara_web
     ara_web_fqdn: web.demo.recordsansible.org
     ara_web_api_endpoint: "https://api.demo.recordsansible.org"
