@@ -52,20 +52,20 @@ If you want a quick start, you can have a look at the
 [README](https://github.com/ansible-community/ara/tree/feature/1.0#quickstart)
 or there is otherwise plenty of documentation available to get started:
 
-- [Installing the 1.0 pre-release](https://ara.readthedocs.io/en/feature-1.0/installation.html)
-- [Configuring Ansible to use ARA](https://ara.readthedocs.io/en/feature-1.0/ansible-configuration.html)
-- [Configuring the ARA Ansible plugins](https://ara.readthedocs.io/en/feature-1.0/ara-plugin-configuration.html)
-- [Customizing the API server configuration](https://ara.readthedocs.io/en/feature-1.0/api-configuration.html)
-- [Setting up authentication and security considerations](https://ara.readthedocs.io/en/feature-1.0/api-security.html)
-- [API endpoint documentation and object relationships](https://ara.readthedocs.io/en/feature-1.0/api-documentation.html)
-- [How to use the API with the built-in API clients](https://ara.readthedocs.io/en/feature-1.0/api-usage.html)
-- [Architecture and workflows: how ARA records data](https://ara.readthedocs.io/en/feature-1.0/architecture.html)
+- [Installing the 1.0 pre-release](https://ara.readthedocs.io/en/latest/installation.html)
+- [Configuring Ansible to use ARA](https://ara.readthedocs.io/en/latest/ansible-configuration.html)
+- [Configuring the ARA Ansible plugins](https://ara.readthedocs.io/en/latest/ara-plugin-configuration.html)
+- [Customizing the API server configuration](https://ara.readthedocs.io/en/latest/api-configuration.html)
+- [Setting up authentication and security considerations](https://ara.readthedocs.io/en/latest/api-security.html)
+- [API endpoint documentation and object relationships](https://ara.readthedocs.io/en/latest/api-documentation.html)
+- [How to use the API with the built-in API clients](https://ara.readthedocs.io/en/latest/api-usage.html)
+- [Architecture and workflows: how ARA records data](https://ara.readthedocs.io/en/latest/architecture.html)
 
 There are even built-in Ansible roles to help you set up an API server as well
 as the new web interface:
 
-- [ansible-role-ara-api](https://ara.readthedocs.io/en/feature-1.0/ansible-role-ara-api.html)
-- [ansible-role-ara-web](https://ara.readthedocs.io/en/feature-1.0/ansible-role-ara-web.html)
+- [ansible-role-ara-api](https://ara.readthedocs.io/en/latest/ansible-role-ara-api.html)
+- [ansible-role-ara-web](https://ara.readthedocs.io/en/latest/ansible-role-ara-web.html)
 
 In fact, these roles are the ones used to deploy the live demos on
 [api.demo.recordsansible.org](https://api.demo.recordsansible.org/) and

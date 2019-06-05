@@ -47,8 +47,8 @@ That's it !
 
 ## Live demos
 
-You can find live demos deployed by the built-in [ara_api](https://ara.readthedocs.io/en/feature-1.0/ansible-role-ara-api.html)
-and [ara_web](https://ara.readthedocs.io/en/feature-1.0/ansible-role-ara-web.html)
+You can find live demos deployed by the built-in [ara_api](https://ara.readthedocs.io/en/latest/ansible-role-ara-api.html)
+and [ara_web](https://ara.readthedocs.io/en/latest/ansible-role-ara-web.html)
 Ansible roles at https://api.demo.recordsansible.org and https://web.demo.recordsansible.org.
 
 ## ARA is free and open source
@@ -58,7 +58,7 @@ ARA is free and open source under the GPLv3 license.
 The code review and CI infrastructure is hosted by [OpenDev](https://opendev.org).
 
 You can participate in [code reviews](https://review.opendev.org/#/q/project:%255Erecordsansible/.*)
-and learn how you can contribute your first patch in the [contributors documentation](https://ara.readthedocs.io/en/feature-1.0/contributing.html).
+and learn how you can contribute your first patch in the [contributors documentation](https://ara.readthedocs.io/en/latest/contributing.html).
 
 ## ARA is tested, stable and production ready
 
@@ -78,4 +78,4 @@ You can browse your ARA reports locally from a sqlite database without ever leav
 
 Need to aggregate data from multiple locations ?
 You can run an API server and hook it up to a database engine like
-[PostgreSQL or MySQL](https://ara.readthedocs.io/en/feature-1.0/api-configuration.html#ara-database-engine).
+[PostgreSQL or MySQL](https://ara.readthedocs.io/en/latest/api-configuration.html#ara-database-engine).

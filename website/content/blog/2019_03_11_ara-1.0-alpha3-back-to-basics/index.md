@@ -59,8 +59,8 @@ the Ansible playbooks to deploy it !
 
 ARA 1.0 will ship with two built-in Ansible roles:
 
-- [ansible-role-ara-api](https://ara.readthedocs.io/en/feature-1.0/ansible-role-ara-api.html)
-- [ansible-role-ara-web](https://ara.readthedocs.io/en/feature-1.0/ansible-role-ara-web.html)
+- [ansible-role-ara-api](https://ara.readthedocs.io/en/latest/ansible-role-ara-api.html)
+- [ansible-role-ara-web](https://ara.readthedocs.io/en/latest/ansible-role-ara-web.html)
 
 These roles work are already in use to deploy
 [api.demo.recordsansible.org](https://api.demo.recordsansible.org) as
