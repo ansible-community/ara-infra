@@ -22,7 +22,7 @@ This limited development is the result of this 0.15.0 release.
 # Changelog for ARA Records Ansible 0.15.0
 
 The following are highlights from the 0.15.0 release.
-The full list of changes between 0.14.6 and 0.15.0 are available on [GitHub](https://github.com/openstack/ara/compare/0.14.6...0.15.0).
+The full list of changes between 0.14.6 and 0.15.0 are available on [GitHub](https://github.com/ansible-community/ara/compare/0.14.6...0.15.0).
 
 - ARA: Ansible Run Analysis has been [rebranded](https://dmsimard.com/2018/02/23/rebranding-ansible-run-analysis-to-ara-records-ansible/)
   to ARA Records Ansible (Another Recursive Acronym)
@@ -34,7 +34,7 @@ The full list of changes between 0.14.6 and 0.15.0 are available on [GitHub](htt
   ``SQLALCHEMY_POOL_TIMEOUT`` and ``SQLALCHEMY_POOL_RECYCLE`` parameters.
   See [configuration documentation](https://ara.readthedocs.io/en/latest/configuration.html#parameters-and-their-defaults) for more information.
 - Logging was fixed and improved to provide better insight when in DEBUG level.
-- Vastly improved the default [logging configuration](https://github.com/openstack/ara/blob/3c91da40871e50fa2854231d54f298ed996d1da6/ara/config/logger.py#L27-L78).
+- Vastly improved the default [logging configuration](https://github.com/ansible-community/ara/blob/3c91da40871e50fa2854231d54f298ed996d1da6/ara/config/logger.py#L27-L78).
   ARA will create a default logging configuration file in ``~/.ara/logging.yml`` that you can customize, if need be.
   Deleting this file will make ARA create a new one with updated defaults.
 - Added python modules to help configure Ansible to use ARA, for example,
@@ -42,13 +42,13 @@ The full list of changes between 0.14.6 and 0.15.0 are available on [GitHub](htt
   You can find more examples in the [configuration documentation](https://ara.readthedocs.io/en/latest/configuration.html).
 - Implemented a workaround for fixing a race condition where an ``ansible-playbook`` command
   may be interrupted after the playbook was recorded in the database but before playbook file was saved.
-- Flask 0.12.3 was [blacklisted](https://github.com/openstack/ara/commit/87272840bfc8b4c5db10593e47884e33a0f4af40)
+- Flask 0.12.3 was [blacklisted](https://github.com/ansible-community/ara/commit/87272840bfc8b4c5db10593e47884e33a0f4af40)
   from ARA's requirements, this was a broken release.
 - The ARA CLI can now be called with "python -m ara". This can be useful if you
   need to specify a specific python interpreter, for example.
 - Updated and improved integration tests across different operating systems,
   python2 and python3 with different versions of Ansible. The full test matrix
-  is available in the [README](https://github.com/openstack/ara#contributing-testing-issues-and-bugs).
+  is available in the [README](https://github.com/ansible-community/ara#contributing-testing-issues-and-bugs).
 
 # Known issue: memory usage
 
@@ -87,4 +87,4 @@ You can look at some of the work we have been doing for this new version [here](
 There are a lot exciting opportunities where you can contribute to the development
 of 1.0, please reach out to me (dmsimard) if you're interested in helping !
 
-You can come chat with us on [IRC or on Slack](https://github.com/openstack/ara#contributing-testing-issues-and-bugs).
+You can come chat with us on [IRC or on Slack](https://github.com/ansible-community/ara#contributing-testing-issues-and-bugs).

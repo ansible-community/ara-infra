@@ -14,7 +14,7 @@ type: post
 
 We're on the road to version 1.0.0 and we're getting closer: introducing the release of version 0.11!
 
-[Four new contributors](https://github.com/openstack/ara/graphs/contributors) (!), [55 commits](https://github.com/openstack/ara/compare/0.10.0...0.11.0) since 0.10 and 112 files changed for a total of 2,247 additions and 939 deletions.
+[Four new contributors](https://github.com/ansible-community/ara/graphs/contributors) (!), [55 commits](https://github.com/ansible-community/ara/compare/0.10.0...0.11.0) since 0.10 and 112 files changed for a total of 2,247 additions and 939 deletions.
 
 New features, more stability, better documentation and better test coverage.
 
@@ -41,10 +41,10 @@ New features, more stability, better documentation and better test coverage.
 
 Thanks [Jason Rist](https://twitter.com/knowncitizen) for the contribution, really appreciate it !
 
-[With the icon](https://github.com/openstack/ara/blob/master/doc/source/_static/ara-with-icon.png):
+[With the icon](https://github.com/ansible-community/ara/blob/master/doc/source/_static/ara-with-icon.png):
 ![icon](ara-with-icon.png)
 
-[Without the icon](https://github.com/openstack/ara/blob/master/doc/source/_static/ara.png):
+[Without the icon](https://github.com/ansible-community/ara/blob/master/doc/source/_static/ara.png):
 ![full](ara.png)
 
 ## Taking the newest version of ARA out for a spin

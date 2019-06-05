@@ -76,7 +76,7 @@ ARA makes your playbook execution history database available through:
 One of ARA's core features and values is its simplicity.
 You can read about the other core values of ARA in the [project manifesto](https://ara.readthedocs.io/en/latest/manifesto.html).
 
-To learn more about ARA, you can find the [open source code on GitHub](https://github.com/openstack/ara) or
+To learn more about ARA, you can find the [open source code on GitHub](https://github.com/ansible-community/ara) or
 watch this short video demo on YouTube:
 
 {{< youtube k3i8VPCanGo >}}

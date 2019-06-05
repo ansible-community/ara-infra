@@ -18,7 +18,7 @@ awesome [Zuul](https://zuul-ci.org/).
 
 ![Zuul Pipelines](zuul-pipelines.png)
 
-It even provides ARA reports for ARA's [integration test jobs](https://github.com/openstack/ara#contributing-testing-issues-and-bugs)
+It even provides ARA reports for ARA's [integration test jobs](https://github.com/ansible-community/ara#contributing-testing-issues-and-bugs)
 in a sort-of nested way. Zuul's Ansible ends up installing Ansible and ARA.
 It makes my brain hurt sometimes... but in an awesome way.
 

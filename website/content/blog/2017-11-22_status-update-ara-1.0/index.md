@@ -50,8 +50,8 @@ as the results for their unit and integration tests live on
 [Gerrit](https://review.openstack.org/#/q/project:openstack/ara+branch:feature/1.0).
 
 There's currently two git branches,
-[master](https://github.com/openstack/ara/tree/master) and
-[feature/1.0](https://github.com/openstack/ara/tree/feature/1.0). This allows
+[master](https://github.com/ansible-community/ara/tree/master) and
+[feature/1.0](https://github.com/ansible-community/ara/tree/feature/1.0). This allows
 the development of version 1.0 to move forward without impacting the master
 branch from which the 0.15.x series of releases are currently tagged from.
 

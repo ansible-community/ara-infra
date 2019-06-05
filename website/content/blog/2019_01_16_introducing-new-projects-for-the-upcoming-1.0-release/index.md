@@ -45,7 +45,7 @@ the components in the [documentation](https://ara-server.readthedocs.io/en/lates
 
 ## ara-server
 
-ara-server ([github](https://github.com/openstack/ara-server)) is a new python 3
+ara-server ([github](https://github.com/ansible-community/ara-server)) is a new python 3
 application built with [django](https://www.djangoproject.com/) and
 [django-rest-framework](https://www.django-rest-framework.org/).
 
@@ -69,7 +69,7 @@ This brings us to the next component we'll talk about, ara-clients.
 
 ## ara-clients
 
-ara-clients ([github](https://github.com/openstack/ara-clients)) is the project
+ara-clients ([github](https://github.com/ansible-community/ara-clients)) is the project
 that provides the python API clients for communicating with the API.
 
 It currently ships two clients, one that works without needing to stand up an
@@ -145,7 +145,7 @@ These are part of the next project from 1.0 we'll talk about: ara-plugins.
 
 ## ara-plugins
 
-ara-plugins ([github](https://github.com/openstack/ara-plugins)) is the project
+ara-plugins ([github](https://github.com/ansible-community/ara-plugins)) is the project
 that contains Ansible modules and plugins for ARA.
 
 Ansible provides a [callback plugin interface](https://docs.ansible.com/ansible/latest/plugins/callback.html)
@@ -168,7 +168,7 @@ They are basically the only components that have not been re-written from scratc
 
 ## ara-web
 
-ara-web ([github](https://github.com/openstack/ara-web)) will be the new web
+ara-web ([github](https://github.com/ansible-community/ara-web)) will be the new web
 interface project in ARA 1.0.
 
 It is a modern javascript interface built with [React](https://reactjs.org/)
@@ -194,7 +194,7 @@ they're about helping us recording Ansible with Another Recursive Acronym.
 
 ### ara-infra
 
-ara-infra ([github](https://github.com/openstack/ara-infra)) is a satellite
+ara-infra ([github](https://github.com/ansible-community/ara-infra)) is a satellite
 project for ARA's infrastructure related things.
 
 So far, it contains:

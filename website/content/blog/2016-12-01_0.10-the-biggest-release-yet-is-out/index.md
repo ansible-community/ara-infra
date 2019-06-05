@@ -14,7 +14,7 @@ type: post
 
 19 commits, 59 changed files, 2,404 additions and 588 deletions... and more than a month's on and off work.
 
-[0.10 is out](https://github.com/openstack/ara/releases/tag/0.10.0) !
+[0.10 is out](https://github.com/ansible-community/ara/releases/tag/0.10.0) !
 
 Where to get it ? Get started easily by [installing](http://ara.readthedocs.io/en/latest/installation.html) and [configuring](http://ara.readthedocs.io/en/latest/configuration.html) ARA.
 

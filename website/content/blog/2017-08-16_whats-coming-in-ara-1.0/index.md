@@ -20,7 +20,7 @@ Just for fun, let's look at what I had written back in May to summarize what
 was probably coming:
 
 - ~~Python 3 compatibility~~
-  - This is done and was shipped in [ARA 0.14](https://github.com/openstack/ara/releases/tag/0.14.0)!
+  - This is done and was shipped in [ARA 0.14](https://github.com/ansible-community/ara/releases/tag/0.14.0)!
     It was a lot of work but ARA is now working and is fully tested against both python2.7 and python3.5.
 - ~~An implementation in Zuul~~
   - This is in [progress](https://review.openstack.org/#/c/487853/) ! It's no longer a question of "if" but rather "how".
@@ -182,7 +182,7 @@ other output drivers.
 
 A significant amount of work has been done on the database model.
 The magnitude of these changes have made me consider backwards incompatibility
-for the first time since ARA introduced database upgrades in [ARA 0.10 from December 2016](https://github.com/openstack/ara/releases/tag/0.10.0).
+for the first time since ARA introduced database upgrades in [ARA 0.10 from December 2016](https://github.com/ansible-community/ara/releases/tag/0.10.0).
 
 The decision to move forward without supporting migrations and upgrades was to make this work possible and drastically easier.
 

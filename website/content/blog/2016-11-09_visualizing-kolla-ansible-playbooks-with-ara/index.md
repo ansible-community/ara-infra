@@ -29,7 +29,7 @@ containers that are deployed with [Ansible](https://www.ansible.com/).
 This translates into quite a few playbooks, lots of plays, many more tasks and especially lots of data to parse through
 when trying to understand what is going on.
 
-I was recently pleased to learn that the Kolla project implemented [ARA](https://github.com/openstack/ara) to help them
+I was recently pleased to learn that the Kolla project implemented [ARA](https://github.com/ansible-community/ara) to help them
 troubleshoot their CI jobs.
 
 ## Installing ARA is simple

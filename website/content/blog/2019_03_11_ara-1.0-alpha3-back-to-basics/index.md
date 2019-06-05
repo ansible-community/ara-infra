@@ -31,7 +31,7 @@ be simple meant that we were not staying true to the project's [core values](htt
 
 The ``ara-server``, ``ara-plugins`` and ``ara-clients`` projects have been
 merged into a single repository and you'll be able to find them in the
-[feature/1.0 branch](https://github.com/openstack/ara/tree/feature/1.0) of the
+[feature/1.0 branch](https://github.com/ansible-community/ara/tree/feature/1.0) of the
 main ARA repository.
 
 This means less burden for contributors and maintainers, for example:
@@ -48,10 +48,10 @@ For users, this means that there's only a single package with everything
 included on PyPi instead of three and 1.0 is already lightweight in terms of
 dependencies when compared to 0.x.
 
-[ara-web](https://github.com/openstack/ara-web) will remain a standalone project
+[ara-web](https://github.com/ansible-community/ara-web) will remain a standalone project
 that provides a javascript web client to the API.
 
-[ara-infra](https://github.com/openstack/ara-infra) will also remain since it's
+[ara-infra](https://github.com/ansible-community/ara-infra) will also remain since it's
 for managing the infrastructure for the project -- including this blog post and
 the Ansible playbooks to deploy it !
 
@@ -65,7 +65,7 @@ ARA 1.0 will ship with two built-in Ansible roles:
 These roles work are already in use to deploy
 [api.demo.recordsansible.org](https://api.demo.recordsansible.org) as
 well as [web.demo.recordsansible.org](https://web.demo.recordsansible.org) from
-playbooks in [ara-infra](https://github.com/openstack/ara-infra/commit/a797094b61d3dd5f7ccb25849499489ed40cafea).
+playbooks in [ara-infra](https://github.com/ansible-community/ara-infra/commit/a797094b61d3dd5f7ccb25849499489ed40cafea).
 
 These roles are rough around the edges right now but they will evolve over
 time to provide a framework for integration testing different ways of deploying
@@ -75,7 +75,7 @@ the new ARA API server as well as the web client interface.
 
 There's still some work to do before moving forward with what we'd call a beta.
 
-For example, we need to iterate on [ara-web](https://github.com/openstack/ara-web)
+For example, we need to iterate on [ara-web](https://github.com/ansible-community/ara-web)
 and make sure the API is able to give it the information it needs.
 
 Also, while the API and the API clients are nearing completion, we currently do

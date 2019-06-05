@@ -85,7 +85,7 @@ Zuul is awesome and let me try to give you a (long) elevator pitch of some of my
 - Every project managed by Zuul is independant and can manage their own jobs, inventories and pipeline configuration in tree.
 - When evaluating a change or a pull request, Zuul will speculatively load and run the new configuration coming from the change. This means you can create a new job and iterate on it until it works without even merging any code or commits.
 - Horizontally scalable for the vast majority of it's workloads, Zuul is highly available and is designed to consume multiple clouds and regions concurrently with the expectation that they will eventually fail.
-- Zuul provides an implementation of [ARA Records Ansible](https://github.com/openstack/ara) for providing host and task granular results and metrics through an intuitive reporting web interface.
+- Zuul provides an implementation of [ARA Records Ansible](https://github.com/ansible-community/ara) for providing host and task granular results and metrics through an intuitive reporting web interface.
 
 {{< tweet 1032799030131142657 >}}
 
@@ -117,4 +117,4 @@ The upcoming major release, ARA 1.0, is all but a complete rewrite and has been 
 1.0 will feature a brand new REST API which will let users query and integrate their Ansible execution data in their tools and workflows.
 
 The to-do list for 1.0 is shrinking and I'm really excited that we're getting to a point where people can start using it for testing purposes.
-If you'd like to test 1.0 or contribute to ARA, please reach out to me on [IRC, Slack](https://github.com/openstack/ara#community-and-getting-help) or [Twitter](https://twitter.com/dmsimard)!
+If you'd like to test 1.0 or contribute to ARA, please reach out to me on [IRC, Slack](https://github.com/ansible-community/ara#community-and-getting-help) or [Twitter](https://twitter.com/dmsimard)!

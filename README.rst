@@ -18,7 +18,7 @@ Contributors
 
 See contributors on GitHub_.
 
-.. _GitHub: https://github.com/openstack/ara-infra/graphs/contributors
+.. _GitHub: https://github.com/ansible-community/ara-infra/graphs/contributors
 
 Copyright
 =========

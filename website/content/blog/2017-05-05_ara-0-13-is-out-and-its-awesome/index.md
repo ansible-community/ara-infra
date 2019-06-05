@@ -14,7 +14,7 @@ type: post
 
 I'm excited to announce the release of ARA: Ansible Run Analysis 0.13.0!
 
-ARA 0.13.0 is available on [PyPi](https://pypi.python.org/pypi/ara) or from source on [GitHub](https://github.com/openstack/ara).
+ARA 0.13.0 is available on [PyPi](https://pypi.python.org/pypi/ara) or from source on [GitHub](https://github.com/ansible-community/ara).
 I'm also happy to announce that ARA 0.13.0 will be the first version of ARA packaged for Fedora and CentOS EPEL.
 
 Stay tuned in the near future to hear when the packages will be available.
@@ -44,7 +44,7 @@ as well for use in your different scripts or implementations.
 I'm very surprised with the amount of improvements that we managed to land in
 0.13, I hope you'll be as happy as I am !
 
-The full changelog is available on [GitHub](https://github.com/openstack/ara/releases/tag/0.13.0)
+The full changelog is available on [GitHub](https://github.com/ansible-community/ara/releases/tag/0.13.0)
 but let's highlight the really cool stuff.
 
 ### Permanent links !

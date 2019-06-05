@@ -57,7 +57,7 @@ ARA's success to him today.
 I don't consider myself a professional programmer by any stretch. Just a system
 administrator passionate with building tools to help him in his job.
 
-Lars came around with [code contributions](https://github.com/openstack/ara/commits?author=larsks)
+Lars came around with [code contributions](https://github.com/ansible-community/ara/commits?author=larsks)
 for things I admittedly wasn't very good at.
 
 A much better database schema, a better structure and framework for the flask web
@@ -82,9 +82,9 @@ With this post came a second demo video:
 We're **June 7th 2016**, [ARA is one month old and we've broken 200 commits already](https://dmsimard.com/2016/06/07/ara-one-month-and-200-commits-later/).
 
 **June 8th 2016**, the [patch](https://review.openstack.org/#/c/321226/) to make ARA
-an OpenStack community project merges and [github.com/openstack/ara](https://github.com/openstack/ara) is born.
+an OpenStack community project merges and [github.com/ansible-community/ara](https://github.com/ansible-community/ara) is born.
 
-To this day, I still keep the [github.com/dmsimard/ara](https://github.com/openstack/ara) repository around for
+To this day, I still keep the [github.com/dmsimard/ara](https://github.com/ansible-community/ara) repository around for
 the sake of keeping the history of issues and pull requests that were created before ARA
 joined the OpenStack community.
 
@@ -128,7 +128,7 @@ of the interface ARA still uses today:
 <br>
 ## ARA 0.11: ARA gets a logo and a new UI prototype
 
-**[January 2017](https://github.com/openstack/ara/commit/0d5d0939a6b7a319d99acc1fb20d4ca282bd76ab)**,
+**[January 2017](https://github.com/ansible-community/ara/commit/0d5d0939a6b7a319d99acc1fb20d4ca282bd76ab)**,
 Jason Rist ([@knowncitizen](https://twitter.com/knowncitizen)) came up with a logo for ARA !
 
 With the icon:
