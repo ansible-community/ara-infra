@@ -119,5 +119,5 @@ relativeURLs = true
 # username unless otherwise noted. These are the icons affected by socialAppearAtTop
 # and socialAppearAtBottom.
 [social]
-  github           = "openstack/?q=ara"
+  github           = "ansible-community/?q=ara"
   twitter          = "ARecordsAnsible"
