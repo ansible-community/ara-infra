@@ -11,39 +11,58 @@ ARA Records Ansible playbooks and makes them easier to understand and troublesho
 ARA saves playbook results to a local or remote database by using an Ansible
 callback plugin and provides an API to integrate this data in tools and interfaces.
 
-- For the API as well as the Ansible components, see [ara](https://github.com/ansible-community/ara)
-- For the web client interface, see [ara-web](https://github.com/ansible-community/ara-web)
+The [ara](https://github.com/ansible-community/ara) project provides ARA's
+Ansible roles and plugins, the REST API server as well as simple built-in web
+interfaces to browse the recorded data.
 
-## ARA is simple and easy to use
+The [ara-web](https://github.com/ansible-community/ara-web) project provides a
+stateless javascript client interface to the ARA API.
 
-Simplicity is a core feature in ARA.
-It does one thing and it does it well: reporting on your Ansible playbooks.
+## How does it work ?
 
-Here's how you can get started from scratch with sane defaults:
+ARA Records Ansible playbooks through an Ansible
+[callback plugin](https://docs.ansible.com/ansible/latest/plugins/callback.html).
 
-```bash
-# Create a python3 virtual environment and activate it so we don't conflict
-# with system or distribution packages
-python3 -m venv ~/.ara/virtualenv
-source ~/.ara/virtualenv/bin/activate
+![recording-workflow](/static/recording-workflow.png)
 
-# Install Ansible, ARA and it's API server dependencies
-pip install ansible ara[server]
+0. ARA is installed and Ansible is configured to use the callback plugin
+1. An ``ansible-playbook`` command is executed
+2. Ansible triggers the callback plugin for every event (``v2_playbook_on_start``, ``v2_runner_on_failed``, etc.)
+3. The relevant information is retrieved from the Ansible playbook execution context and is sent to the API server
+4. The API server validates and serializes the data before storing it the configured database backend
+5. The API server sends a response back to the API client with the results
+6. The callback plugin returns, ending the callback hook
+7. Ansible continues running the playbook until it fails or is completed (back to step 2)
+
+Once the data has been saved in the database, it is made available for query by
+the API and web interfaces.
+
+## Quickstart
+
+Here's how you can get started from scratch with sane defaults with python>=3.6:
+
+```
+# Install ARA and Ansible for the current user
+python3 -m pip install --user ansible "ara[server]"
 
 # Tell Ansible to use the ARA callback plugin
-export ANSIBLE_CALLBACK_PLUGINS="$(python -m ara.setup.callback_plugins)"
+export ANSIBLE_CALLBACK_PLUGINS="$(python3 -m ara.setup.callback_plugins)"
 
-# Run your playbook as usual
+# Run your playbook
 ansible-playbook playbook.yml
 ```
 
 If nothing went wrong, your playbook data should have been saved in a local
 database at ``~/.ara/server/ansible.sqlite``.
 
-You can browse this data through the API by executing ``ara-manage runserver``
+You can take a look at the recorded data by running ``ara-manage runserver``
 and pointing your browser at http://127.0.0.1:8000/.
 
 That's it !
+
+For more information, refer to the documentation on
+[installation](https://ara.readthedocs.io/en/latest/installation.html) and
+[configuration](https://ara.readthedocs.io/en/latest/ansible-configuration.html).
 
 ## Live demos
 
