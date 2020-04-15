@@ -42,16 +42,16 @@ relativeURLs = true
   loadFavicon          = true
   faviconVersion       = ""
   # Sets Social Share links to appear on posts
-  socialShare          = true
+  socialShare          = false
   # Sets specific share to appear on posts (default behavior is to appear)
-  socialShareTwitter   = true
-  socialShareGoogleplus = true
-  socialShareFacebook  = true
-  socialShareReddit    = true
-  socialShareLinkedin  = true
+  socialShareTwitter   = false
+  socialShareGoogleplus = false
+  socialShareFacebook  = false
+  socialShareReddit    = false
+  socialShareLinkedin  = false
   socialShareStumbleupon = false
   socialSharePinterest = false
-  socialShareEmail     = true
+  socialShareEmail     = false
 
   # Load custom CSS or JavaScript files. The variable is an array so that you
   # can load multiple files if necessary. You can also load the standard theme
