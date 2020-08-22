@@ -120,4 +120,4 @@ relativeURLs = true
 # and socialAppearAtBottom.
 [social]
   github           = "ansible-community/?q=ara"
-  twitter          = "ARecordsAnsible"
+  twitter          = "RecordsAnsible"
