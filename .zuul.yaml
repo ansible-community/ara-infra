@@ -1,13 +1,13 @@
 - nodeset:
-    name: ara-infra-fedora-30
+    name: ara-infra-fedora-32
     nodes:
       - name: ara.recordsansible.org
-        label: fedora-30
+        label: fedora-32
 
 - job:
     name: ara-infra-website
     parent: base
-    nodeset: ara-infra-fedora-30
+    nodeset: ara-infra-fedora-32
     pre-run: tests/website-pre.yaml
     run: playbooks/website.yaml
     post-run: tests/website-post.yaml
