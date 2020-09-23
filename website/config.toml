@@ -85,6 +85,10 @@ relativeURLs = true
     width     = ""
     alt       = "ara.recordsansible.org"
 
+# https://discourse.gohugo.io/t/raw-html-getting-omitted-in-0-60-0/22032
+[markup.goldmark.renderer]
+unsafe = true
+
 [params.postAmount]
 # Sets the number of recent posts to show in the sidebar. The default value is 5.
     sidebar = 5
