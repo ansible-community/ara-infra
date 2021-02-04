@@ -5,7 +5,7 @@ categories:
 tags:
   - ansible
 date: 2021-01-30
-title: "Benchmarking Ansible and python versions fun and science"
+title: "Benchmarking Ansible and python versions for fun and science"
 slug: benchmarking-ansible-and-python-versions-for-fun-and-science
 type: post
 ---
