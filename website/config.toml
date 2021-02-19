@@ -4,83 +4,43 @@ languageCode = "en-us"
 title = "ARA Records Ansible | ara.recordsansible.org"
 theme = "hugo-future-imperfect"
 preserveTaxonomyNames = true
-paginate = 5
-disqusShortname = ""
-googleAnalytics = "UA-119558821-1"
+paginate = 10
 pluralizeListTitles = false
 enableRobotsTXT = true
 enableGitInfo = true
 relativeURLs = true
 
 [params]
-  # Sets the meta tag description
-  description          = "ARA Records Ansible playbook runs and makes the recorded data available and intuitive for users and systems."
-  # Sets the navbarTitle that appears in the top left of the navigation bar
-  navbarTitle          = "ARA Records Ansible"
-  # Sets where "View More Posts" links
-  viewMorePostLink     = "/blog/"
-
-# Optional Params
-  # Sets navbarTitle to match the section of the website
-  dynamicTitles        = false
-  # Sets RSS icons to appear on the sidebar with the social media buttons
-  rssAppearAtTop       = true
-  rssAppearAtBottom    = true
-  # Sets Social Media icons to appear on the sidebar
-  socialAppearAtTop    = true
-  socialAppearAtBottom = true
-  # Sets Categories to sort by number of posts instead of alphabetical
-  categoriesByCount    = true
-  # set to show or to hide categories in the sidebar
-  showSidebarCategories = true
-  # Sets Estimated Reading Time to appear in post headers
-  includeReadingTime   = true
-  # Sets the Favicon and Version for the site. Default support is for
-  # apple-touch-icon-precomposed.png, favicon.png, favicon.ico, and mstile.png.
-  # These are stored in the favicon folder. See the following for more information:
-  # https://github.com/audreyr/favicon-cheat-sheet
-  loadFavicon          = true
-  faviconVersion       = ""
-  # Sets Social Share links to appear on posts
-  socialShare          = false
-  # Sets specific share to appear on posts (default behavior is to appear)
-  socialShareTwitter   = false
-  socialShareGoogleplus = false
-  socialShareFacebook  = false
-  socialShareReddit    = false
-  socialShareLinkedin  = false
-  socialShareStumbleupon = false
-  socialSharePinterest = false
-  socialShareEmail     = false
-
-  # Load custom CSS or JavaScript files. The variable is an array so that you
-  # can load multiple files if necessary. You can also load the standard theme
-  # files by adding the value, "default".
-  # customCSS            = ["default", "/path/to/file"]
-  # customJS             = ["default", "/path/to/file"]
-  customCSS            = ["default"]
-  customJS             = ["default"]
-
-  # options for highlight.js (version, additional languages, and theme)
-  disable_highlight = false # set to true to disable Highlight
-  highlightjsVersion = "9.13.1"
-  highlightjsCDN = "//cdn.bootcss.com"
-  highlightjsLang = ["r", "yaml", "css"]
-  highlightjsTheme = "github"
+  categoriesByCount      = true
+  cssFiles               = ["default"]
+  description            = "ARA Records Ansible and makes it easier to understand and troubleshoot."
+  dynamicTitles          = false
+  enableCDN              = false
+  faviconVersion         = ""
+  hideEmptyStats         = false
+  highlightjsLang        = ["bash", "python", "yaml"]
+  highlightjsTheme       = "github"
+  highlightjs            = true
+  imageStretch           = ""
+  jsFiles                = ["default"]
+  loadFavicon            = true
+  navbarTitle            = "ARA Records Ansible"
+  readingTime            = true
+  removeBlur             = false
+  rssAppearAtBottom      = true
+  rssAppearAtTop         = true
+  showSidebarCategories  = true
+  socialShare            = []
+  viewMorePostsLink      = "/blog/"
 
 [permalinks]
   blog = "/blog/:year/:month/:day/:slug/"
 
 [params.intro]
-  paragraph = "Making your Ansible playbooks easier to understand and troubleshoot."
-
-  # This appears at the top of the sidebar above params.intro.header.
-  # A width of less than 100px is recommended from a design perspective.
+  paragraph = "Records Ansible and makes it easier to understand and troubleshoot."
   [params.intro.pic]
     src       = "static/logo.png"
-    # Sets Image to be a circle
     circle    = false
-    # Sets Image to be Future Imperfect's hexagon
     imperfect = false
     width     = ""
     alt       = "ara.recordsansible.org"
@@ -91,7 +51,7 @@ unsafe = true
 
 [params.postAmount]
 # Sets the number of recent posts to show in the sidebar. The default value is 5.
-    sidebar = 5
+    sidebar = 8
 
 # Sets the menu items in the navigation bar
 # Identifier prepends a Font Awesome icon to the menu item
@@ -108,20 +68,29 @@ unsafe = true
   weight = 2
 
 [[menu.main]]
+  name = "Code"
+  url = "https://github.com/ansible-community/ara"
+  identifier = "fa fa-github"
+  weight = 3
+
+[[menu.main]]
   name = "Documentation"
   url = "https://ara.readthedocs.io"
   identifier = "fa fa-book"
-  weight = 3
+  weight = 4
+
+[[menu.main]]
+  name = "Demo"
+  url = "https://demo.recordsansible.org"
+  identifier = "fa fa-external-link"
+  weight = 5
 
 [[menu.main]]
   name = "Community & Help"
   url = "/community"
   identifier = "fa fa-users"
-  weight = 4
+  weight = 6
 
-# Sets Social Media icons to appear and link to your account. Value should be your
-# username unless otherwise noted. These are the icons affected by socialAppearAtTop
-# and socialAppearAtBottom.
 [social]
   github           = "ansible-community/?q=ara"
   twitter          = "RecordsAnsible"
