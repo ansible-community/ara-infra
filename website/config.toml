@@ -9,6 +9,7 @@ pluralizeListTitles = false
 enableRobotsTXT = true
 enableGitInfo = true
 relativeURLs = true
+ignoreErrors = ["error-remote-getjson"]
 
 [params]
   categoriesByCount      = true
