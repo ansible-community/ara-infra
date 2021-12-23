@@ -141,7 +141,10 @@ Once the container image was pushed, I was able to add it in AWX like this:
 
 Not unlike how the ara callback plugin needs to be enabled when running regular ansible-playbook commands, we also need to do it for AWX.
 
-I recovered the path to the ara callback plugin by running ``podman run -it quay.io/recordsansible/ee-ansible-with-ara:ansible-5.1.0 python3 -m ara.setup.callback_plugins``, added it to the AWX job settings and then configured it using environment variables:
+This could be done inside the EE's ansible.cfg file but I've tested using the AWX job settings.
+This allowed me to tweak the configuration without needing to rebuild a new EE with different parameters.
+
+I first recovered the path to the ara callback plugin by running ``podman run -it quay.io/recordsansible/ee-ansible-with-ara:ansible-5.1.0 python3 -m ara.setup.callback_plugins`` and then added it as well as environment variables to configure the callback plugin:
 
 ![awx-settings](awx-settings.png)
 
@@ -167,7 +170,7 @@ That's what the process looks like at a high level but to summarize:
 
 - You need an ara API server running somewhere
 - Your AWX job templates must use an execution environment (EE) with the ara package installed
-- The ara callback plugin path must be added to the AWX job settings and then configured using environment variables
+- The ara callback must be enabled and configured to send data to an ara server either via an ansible.cfg file or via AWX job settings
 
 Once again, I hope that this blog post helps point you in the right direction to make your playbooks easier to understand and troubleshoot with ara.
 
