@@ -2,11 +2,11 @@
 kind: home
 ---
 
+![ara-full-logo](/static/ara-full-logo.png)
+
 ARA Records Ansible and makes it easier to understand and troubleshoot.
 
 It's another recursive acronym.
-
-![ara-full-logo](/static/ara-full-logo.png)
 
 ## What it does
 

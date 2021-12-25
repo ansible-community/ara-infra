@@ -1,0 +1,123 @@
+baseURL: "https://ara.recordsansible.org/"
+title: "ARA Records Ansible | ara.recordsansible.org"
+paginate: 10
+theme: PaperMod
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+ignoreErrors:
+  - error-remote-getjson
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+params:
+  env: production
+  title: ara
+  description: "Records Ansible and makes it easier to understand and troubleshoot."
+  keywords: [ara, ara records ansible, ansible]
+  DateFormat: "January 2, 2006"
+  defaultTheme: auto # dark, light
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: false
+
+  assets:
+    # disableHLJS: true # to disable highlight.js
+    disableFingerprinting: true
+    favicon: "/static/favicon.ico"
+
+  # Top-left header
+  label:
+    text: " "
+    icon: /static/logo.png
+    iconHeight: 45px
+
+  # home-info mode
+  homeInfoParams:
+    Title: "Community & Help"
+    Content: |
+      
+      Want to stay up to date, need help, want to contribute or just chat about ara ?
+
+      Join or follow the project community:
+
+  socialIcons:
+    - name: twitter
+      url: "https://twitter.com/RecordsAnsible"
+    - name: github
+      url: "https://github.com/ansible-community/ara"
+    - name: matrix
+      url: https://matrix.to/#/#ara:libera.chat
+    - name: slack
+      url: https://join.slack.com/t/arecordsansible/shared_invite/enQtMjMxNzI4ODAxMDQxLTU2NTU3YjMwYzRlYmRkZTVjZTFiOWIxNjE5NGRhMDQ3ZTgzZmQyZTY2NzY5YmZmNDA5ZWY4YTY1Y2Y1ODBmNzc
+    - name: reddit
+      url: https://old.reddit.com/r/ansible
+    - name: IRC (libera.chat)
+      url: https://web.libera.chat/?channels=#ara
+    - name: RSS
+      url: "index.xml"
+
+  cover:
+    hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+  editPost:
+    URL: "https://github.com/ansible-community/ara-infra/tree/master/website/content"
+    Text: "Source on GitHub" # edit text
+    appendFilePath: true # to append file path to Edit link
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+menu:
+  main:
+    - name: About
+      url: /
+      weight: 1
+    - name: Blog
+      url: /blog/
+      weight: 2
+    - name: Search
+      url: /search/
+      weight: 3
+    - name: Code
+      url: https://github.com/ansible-community/ara
+      weight: 4
+    - name: Documentation
+      url: https://ara.readthedocs.io
+      weight: 5
+    - name: Demo
+      url: https://demo.recordsansible.org
+      weight: 6
+    - name: Community & Help
+      url: /community/
+      weight: 7
