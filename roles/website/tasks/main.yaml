@@ -22,7 +22,7 @@
   become: yes
   file:
     src: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
-    dest: /opt/ara-infra
+    dest: "{{ hugo_directory }}"
     state: link
   when: zuul is defined
 
@@ -31,7 +31,7 @@
   become: yes
   synchronize:
     src: "{{ lookup('pipe', 'git rev-parse --show-toplevel') }}"
-    dest: /opt/
+    dest: "{{ hugo_directory | dirname }}"
     delete: yes
   when: zuul is not defined
 

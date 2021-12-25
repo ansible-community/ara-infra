@@ -23,59 +23,42 @@
         name: git
         state: present
 
-    - name: Create user for Hugo
-      become: true
-      user:
-        name: hugo
-        comment: User for Hugo
-        shell: /sbin/nologin
-        home: "{{ hugo_directory }}"
-
-    - name: Download Hugo release tarball
+   - name: Download Hugo release tarball
       get_url:
         url: "{{ hugo_release }}"
-        dest: "{{ hugo_directory }}"
+        dest: /usr/local/src
       register: hugo_download
 
     - name: Extract Hugo release tarball
       unarchive:
         src: "{{ hugo_download.dest }}"
-        dest: "{{ hugo_directory }}"
+        dest: /usr/local/src
         remote_src: yes
       when: hugo_download is changed
 
     - name: Symlink Hugo in PATH
       file:
-        src: "{{ hugo_directory }}/hugo"
+        src: /usr/local/src/hugo
         dest: /usr/local/bin/hugo
-        owner: hugo
-        group: hugo
         state: link
 
     - name: Clone Hugo theme
-      become_user: hugo
       git:
         repo: "{{ hugo_theme }}"
         dest: "{{ hugo_theme_directory }}"
         force: yes
         update: yes
 
-    - name: Configure Hugo server systemd service
-      template:
-        src: hugo.service.j2
-        dest: /etc/systemd/system/hugo.service
+    - name: Create build directory
+      file:
+        path: "{{ hugo_build_directory }}"
+        state: directory
         owner: root
         group: root
-        mode: 0644
-      register: hugo_systemd
+        mode: 0750
 
-    - when: hugo_systemd is changed
-      block:
-        - name: Reload systemctl
-          systemd:
-            daemon_reload: yes
-
-        - name: Restart Hugo
-          service:
-            name: hugo
-            state: restarted
+    - name: Run hugo build
+      command: |
+        hugo --source {{ hugo_directory }}/website \
+          --themesDir {{ hugo_theme_directory | dirname }} \
+          --baseURL "https://ara.recordsansible.org/"
