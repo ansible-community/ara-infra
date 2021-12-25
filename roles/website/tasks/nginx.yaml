@@ -23,12 +23,6 @@
         name: nginx
         state: present
 
-    - name: Set selinux boolean to allow nginx to reverse proxy
-      seboolean:
-        name: httpd_can_network_connect
-        state: yes
-        persistent: yes
-
     - name: Set up nginx vhost
       copy:
         src: ara.recordsansible.org.conf
