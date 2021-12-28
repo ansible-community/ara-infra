@@ -20,6 +20,9 @@ outputs:
     - RSS
     - JSON
 
+permalinks:
+  blog: "/blog/:year/:month/:day/:slug/"
+
 params:
   env: production
   title: ara
