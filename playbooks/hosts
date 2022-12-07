@@ -1,1 +1,1 @@
-demo.recordsansible.org ansible_host=139.178.83.37 ansible_user=fedora ansible_python_interpreter=/usr/bin/python3
+# This is empty, the inventory is generated inside the playbooks
