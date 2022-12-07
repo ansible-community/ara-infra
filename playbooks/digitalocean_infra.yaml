@@ -1,0 +1,83 @@
+# Copyright (c) 2022 The ARA Records Ansible authors
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+
+- name: Spin up infra on digitalocean
+  hosts: localhost
+  gather_facts: no
+  collections:
+    - community.digitalocean
+  module_defaults:
+    group/community.digitalocean.all:
+      oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
+  vars:
+    vm_name: infra.recordsansible.org
+  tasks:
+    - name: Set up SSH key
+      digital_ocean_sshkey:
+        name: dmsimard
+        ssh_pub_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO/2VZqMbJ7oC6cJkAQbGLboXz44I+B1+bUDetDvO9qM dmsimard@localhost
+      register: _key
+
+    - name: Create a tag to associate our resources with
+      digital_ocean_tag:
+        name: "{{ vm_name }}"
+        state: present
+
+    # Allows ICMP and TCP connections to port 22 (SSH), 80/443 (HTTP/S) from any source
+    # Allows outbound access to any destination for protocols tcp, udp and icmp
+    # It will be applied automatically to the VM because they have the same tag.
+    - name: Set up firewall
+      digital_ocean_firewall:
+        name: "{{ vm_name }}"
+        tags: ["{{ vm_name }}"]
+        inbound_rules:
+          - protocol: icmp
+            ports: "1-65535"
+            sources:
+              addresses: ["0.0.0.0/0", "::/0"]
+          - protocol: tcp
+            ports: "22"
+            sources:
+              addresses: ["0.0.0.0/0", "::/0"]
+          - protocol: tcp
+            ports: "80"
+            sources:
+              addresses: ["0.0.0.0/0", "::/0"]
+          - protocol: tcp
+            ports: "443"
+            sources:
+              addresses: ["0.0.0.0/0", "::/0"]
+        outbound_rules:
+          - protocol: tcp
+            ports: "1-65535"
+            destinations:
+              addresses: ["0.0.0.0/0", "::/0"]
+          - protocol: udp
+            ports: "1-65535"
+            destinations:
+              addresses: ["0.0.0.0/0", "::/0"]
+          - protocol: icmp
+            ports: "1-65535"
+            destinations:
+              addresses: ["0.0.0.0/0", "::/0"]
+
+    - name: Create a centos-stream 9 droplet with the ssh key and firewall
+      digital_ocean_droplet:
+        name: "{{ vm_name }}"
+        tags: ["{{ vm_name }}"]
+        unique_name: true
+        # for flavor, image, region names, etc: https://slugs.do-api.dev/
+        size: s-2vcpu-4gb-amd
+        image: centos-stream-9-x64
+        region: tor1
+        ssh_keys:
+          - "{{ _key.data.ssh_key.id }}"
+        wait_timeout: 180
+      register: _droplet
+
+    - name: Set up an inventory host for the droplet
+      add_host:
+        hostname: "{{ vm_name }}"
+        ansible_ssh_host: >-
+          {{ (_droplet.data.droplet.networks.v4 | selectattr("type", "equalto", "public")).0.ip_address }}
+        ansible_ssh_user: root

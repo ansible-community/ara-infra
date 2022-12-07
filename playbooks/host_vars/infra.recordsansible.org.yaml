@@ -1,0 +1,65 @@
+# For ara_api and ara_frontend_nginx
+ara_api_allowed_hosts:
+  - demo.recordsansible.org
+ara_api_database_conn_max_age: 120
+ara_api_database_engine: django.db.backends.mysql
+ara_api_database_name: ara
+ara_api_database_host: 127.0.0.1
+ara_api_database_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          34303538313430323138636534393566313139323766663266633363666265303336383132363137
+          6463643036363434383036383265363363366262353966640a333232393431373862613163616539
+          35646664396537356162373533363562343532633735393464636530346131646363633266396331
+          6530376562326235650a366666373330326565653938343766366433646437653866646531386661
+          38653236313130643333383232343130613765613263383263363634633834376238343430623561
+          6531633736656461376536306434626562303935333734346237
+ara_api_database_port: 3306
+ara_api_database_user: ara
+# TODO: must support read-only: https://github.com/ansible-community/ara-collection/issues/50
+# ara_api_external_auth: true
+# ara_api_external_auth_file: /etc/nginx/.htpasswd
+# ara_api_external_auth_users:
+#   - username: "{{ ara_api_username }}"
+#     password: "{{ ara_api_password }}"
+ara_api_fqdn: demo.recordsansible.org
+ara_api_frontend_server: nginx
+ara_api_frontend_ssl_cert: /etc/letsencrypt/live/demo.recordsansible.org/cert.pem
+ara_api_frontend_ssl_key: /etc/letsencrypt/live/demo.recordsansible.org/privkey.pem
+ara_api_frontend_ssl: true
+# We can set it to false once we can handle it via external_auth for better performance
+ara_api_write_login_required: true
+ara_api_wsgi_server: gunicorn
+
+# The size of a single result can be large if there are thousands of lines of output
+ara_nginx_client_max_body_size: "20M"
+
+# For geerlingguy.mysql
+# https://github.com/geerlingguy/ansible-role-mysql
+mysql_innodb_buffer_pool_size: "1024M"
+mysql_innodb_log_file_size: "256M"
+mysql_user_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          35393463353937323335386535353731393636326230316530343439326136353039306562303164
+          3165653034666237303434376533613565333133646566640a323931336262666162356332646665
+          30346334363764616137666633373333373138653366613633383662396237316530636236313139
+          6335353234386434320a366166343037663262653961376631336132336663336161656436623039
+          31343361613166373161616463656365396231336132636538656161316466323738356637653665
+          6430373033316562396533333061326135373831643564366535
+mysql_root_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          38636138373433333662633931313836353038636634363634653830616531393434373265383336
+          3561646331383462343361363566653239303032373063330a666166303964383636316137626436
+          38353136623539666135613738383166623639616534346237313065646535303634383930363265
+          3036646664306638340a356162356535633532393966363565363039636232656437393631623033
+          31616261376332666635393164616664333831663336393838373831636238663931643031343932
+          3164323863396137366531373035303231666134626162343266
+mysql_max_connections: 100
+mysql_databases:
+  - name: "{{ ara_api_database_name }}"
+    collation: "{{ ara_api_database_collation | default('utf8mb4_general_ci') }}"
+    encoding: "{{ ara_api_database_encoding | default('utf8mb4') }}"
+mysql_users:
+  - name: "{{ ara_api_database_user }}"
+    host: "{{ ara_api_database_host }}"
+    password: "{{ ara_api_database_password }}"
+    priv: "*.*:ALL"

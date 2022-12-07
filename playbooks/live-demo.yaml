@@ -1,26 +1,19 @@
-- name: Provision demo.recordsansible.org
-  hosts: demo.recordsansible.org
+# Copyright (c) 2022 The ARA Records Ansible authors
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+
+# See host_vars/infra.recordsansible.org.yaml for role variables
+- name: Provision the live demo for demo.recordsansible.org
+  hosts: infra.recordsansible.org
   gather_facts: yes
-  vars:
-    # ara_api
-    ara_api_write_login_required: true
-    ara_api_fqdn: api.demo.recordsansible.org
-    ara_api_frontend_server: nginx
-    ara_api_frontend_vhost: api.demo.recordsansible.org.conf.j2
-    ara_api_wsgi_server: gunicorn
-    ara_api_allowed_hosts:
-      - api.demo.recordsansible.org
-    # TODO: Figure out if it's possible to set ara-web to use demo from localhost:3000
-    ara_api_cors_origin_allow_all: true
-    ara_api_cors_origin_whitelist:
-      - https://web.demo.recordsansible.org
-      - http://logs.openstack.org
-      - http://localhost:3000
-    # ara_web
-    ara_web_fqdn: web.demo.recordsansible.org
-    ara_web_api_endpoint: "https://api.demo.recordsansible.org"
-    ara_web_frontend_server: nginx
-    ara_web_frontend_vhost: web.demo.recordsansible.org.conf.j2
-  roles:
-    - ara_api
-    - ara_web
+  tasks:
+    - name: Install and configure MySQL (thanks geerlingguy!)
+      include_role:
+        name: geerlingguy.mysql
+        # The role expects to run as root
+        apply:
+          become: true
+
+    # This role elevates privileges by itself only when necessary
+    - name: Deploy an ara API server with gunicorn and nginx in front
+      include_role:
+        name: recordsansible.ara.ara_api
