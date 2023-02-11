@@ -3,6 +3,12 @@ title: "ARA Records Ansible | ara.recordsansible.org"
 paginate: 10
 theme: PaperMod
 
+# Allow html rendering inside markdown
+markup:
+  goldmark:
+   renderer:
+     unsafe: true
+
 enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
@@ -124,3 +130,7 @@ menu:
     - name: Community & Help
       url: /community/
       weight: 7
+    - name: Presentations
+      url: /presentations/
+      weight: 8
+

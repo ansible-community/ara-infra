@@ -1,0 +1,297 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Simple (but useful) Ansible reporting with ara</title>
+    <base href="https://ara.recordsansible.org/presentations/fosdem-2022/">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/ara.css">
+    <link rel="stylesheet" href="css/prism.css">
+  </head>
+  <body>
+  <div class="ans-mark">
+    <img src="images/logo.svg" height="80px" alt="">
+  </div>
+    <div class="reveal">
+      <div class="slides">
+        <section data-state="cover">
+          <h2>Simple <small><sup>(but useful)</sup></small> Ansible reporting with ara</h2>
+          <h4 style="color:black !important;">FOSDEM 2022</h4>
+          <br>
+          <br>
+          <br>
+          <h5 style="color:black !important;">- David Moreau-Simard (<a href="https://twitter.com/dmsimard">@dmsimard</a>)</h5>
+        </section>
+
+        <section class="text-center">
+          <h2>Parrots are smart dinosaurs</h2>
+        </section>
+
+        <section class="text-center">
+          <img src="images/yoshi.png"><br>
+          <img class="fragment" src="images/party-parrot.gif">
+        </section>
+
+        <section class="text-center">
+          <img src="images/wikipedia.png">
+        </section>
+
+        <section>
+            <h2>$ whoami</h2>
+            <pre class="language-yaml"><code>---
+- name: David Moreau-Simard
+    hosts:
+      - dmsimard:matrix.org
+      - twitter.com/dmsimard
+    vars:
+      location: Montreal, Canada
+      profile: sysadmin, dev/ops, CI/CD, SRE
+    roles:
+      - Principal Software Engineer in the Ansible community team @ Red Hat
+      - Ansible user and contributor since version 1.8 or so (2014?)
+      - Release the 'ansible' package in collaboration with the community working group
+      - Improve tooling, workflows and processes for users, contributors and maintainers alike</code></pre>
+        </section>
+
+        <section class="text-center">
+          <h1>Once upon a time...</h1>
+          <img class="fragment" src="images/openstack-testing.png" alt="">
+        </section>
+
+        <section class="text-center">
+          <img src="images/openstack-architecture.jpg" alt="">
+        </section>
+
+        <section class="text-center">
+            <h1>What was challenging</h1>
+            <ul>
+                <li class="fragment">Thousands of CI jobs across hundreds of projects</li>
+                <li class="fragment">Spread across multiple instances of jenkins and Zuul</li>
+                <li class="fragment">Searching through thousands of lines of console</li>
+                <li class="fragment">What's the problem ? Is it related to my patch ?</li>
+                <li class="fragment">Sharing specific tasks with others</li>
+                <li class="fragment">Onboarding new contributors</li>
+            </ul>
+        </section>
+
+        <section class="text-center">
+            <h1>What we tried</h1>
+            <ul>
+                <li class="fragment">Increasing verbosity (<code>ansible-playbook -vvv</code>)</li>
+                <li class="fragment">Enabling the <a href="https://docs.ansible.com/ansible/latest/collections/ansible/posix/profile_tasks_callback.html">profile_tasks</a> callback</li>
+                <li class="fragment">Adding the <a href="https://gist.github.com/cliffano/9868180">human_log</a> callback (pretty printing JSON)</li>
+                <li class="fragment">A callback that wrote results in HTML tables</li>
+            </ul>
+        </section>
+
+        <section class="text-center">
+            <h2>Ansible console output</h2>
+            <img src="images/ansible-console.gif" alt="ansible-console">
+        </section>
+
+        <section class="text-center">
+            <h2>Ansible console output (verbose)</h2>
+            <img src="images/ansible-console-verbose.gif" alt="ansible-console-verbose">
+        </section>
+
+        <section class="text-center">
+            <h2>Ansible console output (very verbose)</h2>
+            <img src="images/ansible-console-very-verbose.gif" alt="ansible-console-very-verbose">
+        </section>
+
+        <section class="text-center">
+            <h1>Spoiler</h1>
+            <img src="images/osa1.png" alt="openstack-ansible commit">
+        </section>
+
+        <section class="text-center">
+            <h1>A bit less verbose</h1>
+            <img src="images/osa2.png" alt="openstack-ansible diff">
+            <img src="images/osa3.png" alt="openstack-ansible curl">
+        </section>
+
+        <section class="text-center">
+            <h5>ARA Records Ansible playbooks and makes them easier to understand and troubleshoot.</h5>
+            <h6>It's another recursive acronym.</h6>
+            <img src="images/ansible-console-ara.gif" alt="ansible-console-ara">
+        </section>
+
+        <section class="text-center">
+            <h1>How does it work ?</h1>
+            <img src="images/how.png" alt="how does it work">
+        </section>
+
+        <section class="text-center">
+            <h1>Recording workflow</h1>
+            <img src="images/recording-workflow.png" alt="recording workflow">
+        </section>
+
+        <section class="text-center">
+            <h1>Ansible callback plugins</h1>
+            <pre class="language-python"><code># https://github.com/ansible/ansible/blob/devel/lib/ansible/plugins/callback
+
+def v2_on_any(self, *args, **kwargs):
+def v2_runner_on_failed(self, result, ignore_errors=False):
+def v2_runner_on_ok(self, result):
+def v2_runner_on_skipped(self, result):
+def v2_runner_on_unreachable(self, result):
+def v2_playbook_on_start(self, playbook):
+def v2_playbook_on_task_start(self, task, is_conditional):
+def v2_playbook_on_handler_task_start(self, task):
+def v2_playbook_on_play_start(self, play):
+def v2_playbook_on_stats(self, stats):
+def v2_playbook_on_include(self, included_file):
+
+# [...]
+</code></pre>
+        </section>
+
+        <section class="text-center">
+            <h1>Ansible callback plugins</h1>
+            <pre class="language-python"><code>def v2_playbook_on_start(self, playbook):
+  path = os.path.abspath(playbook._file_name)
+
+  # Potentially sanitize some user-specified keys
+  for argument in self.ignored_arguments:
+    if argument in cli_options:
+      cli_options[argument] = "Not saved by ARA as configured by 'ignored_arguments'"
+
+  # Create the playbook
+  self.playbook = self.client.post("/api/v1/playbooks",
+    ansible_version=ansible_version,
+    arguments=cli_options,
+    status="running",
+    path=path
+  )</code></pre>
+        </section>
+
+        <section class="text-center">
+            <h1>Getting started</h1>
+            <h4>Offline with the default sqlite backend</h4>
+            <pre class="language-bash"><code># Install Ansible and ARA (with API server dependencies) for the current user
+python3 -m pip install --user ansible "ara[server]"
+
+# Configure Ansible to use the ARA callback plugin
+export ANSIBLE_CALLBACK_PLUGINS="$(python3 -m ara.setup.callback_plugins)"
+
+# Run an Ansible playbook
+ansible-playbook playbook.yaml
+
+# Use the CLI to see recorded playbooks
+ara playbook list
+
+# Start the built-in development server to browse recorded results
+ara-manage runserver</code></pre>
+        </section>
+
+        <section class="text-center">
+            <h1>Getting started</h1>
+            <h4>With a containerized API server</h4>
+            <pre class="language-bash"><code># Create a directory for a volume to store settings and a sqlite database
+mkdir -p ~/.ara/server
+
+# Start an API server with podman from the image on Quay.io:
+podman run --detach --tty --name ara \
+    --volume ~/.ara/server:/opt/ara:z \
+    -p 8000:8000 \
+    quay.io/recordsansible/ara-api:latest
+
+# or with Docker and Docker Hub:
+docker run --detach --tty --name ara \
+    --volume ~/.ara/server:/opt/ara:z \
+    -p 8000:8000 \
+    docker.io/recordsansible/ara-api:latest</code></pre>
+        </section>
+
+        <section class="text-center">
+            <h1>Getting started</h1>
+            <h4>Configuring the callback to send data to our server</h4>
+            <pre class="language-bash"><code># Install Ansible and ARA (without API server dependencies) for the current user
+python3 -m pip install --user ansible ara
+
+# Configure Ansible to use the ARA callback plugin
+export ANSIBLE_CALLBACK_PLUGINS="$(python3 -m ara.setup.callback_plugins)"
+
+# Set up the ARA callback to know where the API server is located
+export ARA_API_CLIENT="http"
+export ARA_API_SERVER="http://127.0.0.1:8000"
+
+# Run an Ansible playbook
+ansible-playbook playbook.yaml
+
+# Browse http://127.0.0.1:8000 to view the reporting interface</code></pre>
+        </section>
+
+        <section class="text-center">
+            <h1>Live demo</h1>
+            <h2>Recording an Ansible playbook from AWX</h2>
+            <ol>
+                <li class="fragment">Deploy a kubernetes node with <a href="https://github.com/k3s-io/k3s-ansible">k3s-ansible</a></li>
+                <li class="fragment">Run an ara server to receive results from <a href="https://github.com/ansible/awx">AWX</a></li>
+                <li class="fragment">Deploy AWX with <a href="https://github.com/ansible/awx-operator">awx-operator</a></li>
+                <li class="fragment">Configure AWX to record results with ara</li>
+                <li class="fragment">Run a playbook with AWX and see if it works</li>
+            </ol>
+        </section>
+
+        <section>
+          <h2>More reading</h2>
+          <ul>
+            <li><a href="https://ara.recordsansible.org/blog/2021/12/23/recording-ansible-playbooks-from-awx-with-ara/" target="_blank">Recording Ansible playbooks from AWX with ara</a></li>
+          </ul>
+        </section>
+
+        <section class="text-center">
+            <h1>Another live demo</h1>
+            <h2><a href="https://demo.recordsansible.org">demo.recordsansible.org</a></h2>
+            <h4>Deployed with the <a href="https://github.com/ansible-community/ara-collection">ara Ansible collection</a> with gunicorn, nginx and mariadb</h4>
+        </section>
+
+        <section class="text-center">
+            <h1>The project could use your help</h1>
+            <ul>
+              <li><a href="https://github.com/ansible-community/ara">https://github.com/ansible-community/ara</a></li>
+              <li><a href="https://github.com/ansible-community/ara-collection">https://github.com/ansible-community/ara-collection</a></li>
+              <li><a href="https://github.com/ansible-community/ara-infra">https://github.com/ansible-community/ara-infra</a></li>
+              <li><a href="https://github.com/ansible-community/ara-web">https://github.com/ansible-community/ara-web</a> (broken)</li>
+              <li><a href="https://ara.readthedocs.org">https://ara.readthedocs.org</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h1 class="text-center">Thank You!</h1>
+            <h2 class="text-center">Any questions?</h2>
+            <h3>Stay up to date and come chat with us:</h3>
+            <ul>
+                <li><a href="https://ara.recordsansible.org">https://ara.recordsansible.org</a></li>
+                <li><a href="https://twitter.com/RecordsAnsible" target="_blank">@RecordsAnsible</a> on Twitter</li>
+                <li><a href="https://matrix.to/#/#ara:libera.chat">https://matrix.to/#/#ara:libera.chat</a></li>
+                <li><a href="https://web.libera.chat/?channels=#ara">#ara on libera.chat</a> IRC network</li>
+            </ul>
+            <h5>Link to these slides (and more): <a href="https://ara.recordsansible.org/presentations/" target="_blank">https://ara.recordsansible.org/presentations/</a></h5>
+        </section>
+      </div>
+    </div>
+
+    <script src="js/reveal.js"></script>
+    <script src="js/markdown.js"></script>
+    <script src="js/notes.js"></script>
+    <script src="js/prism.js"></script>
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        history: true,
+        width: "85%",
+        height: "90%",
+        transition: "fade",
+        plugins: [
+          RevealMarkdown,
+          RevealNotes,
+        ],
+      });
+    </script>
+  </body>
+</html>
